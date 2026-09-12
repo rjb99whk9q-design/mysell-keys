@@ -11,7 +11,7 @@ const defaultData = {
       description: 'Full access for 24 hours. Perfect for testing.',
       price: 2.99,
       duration_days: 1,
-      stock: 0,
+      stock: 60,
       active: 1
     },
     {
@@ -20,7 +20,7 @@ const defaultData = {
       description: 'One week of premium access. Best value for casual users.',
       price: 5.50,
       duration_days: 7,
-      stock: 0,
+      stock: 60,
       active: 1
     },
     {
@@ -29,7 +29,7 @@ const defaultData = {
       description: 'Full month of access with priority updates.',
       price: 10.99,
       duration_days: 30,
-      stock: 0,
+      stock: 60,
       active: 1
     },
     {
@@ -38,7 +38,7 @@ const defaultData = {
       description: 'Never expires. HWID locked. Best for long-term users.',
       price: 16.99,
       duration_days: null,
-      stock: 0,
+      stock: 69,
       active: 1
     }
   ],
