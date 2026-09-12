@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<section class="admin-login">
+  <div class="container narrow">
+    <div class="login-card">
+      <h1>Admin Login</h1>
+      <% if (error) { %>
+        <div class="error"><%= error %></div>
+      <% } %>
+      <form method="POST" action="/admin/login">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" name="username" required autofocus>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Login</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

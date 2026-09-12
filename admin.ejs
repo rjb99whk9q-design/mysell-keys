@@ -1,0 +1,107 @@
+<%- include('partials/header') %>
+
+<section class="admin-dashboard">
+  <div class="container">
+    <h1>Admin Dashboard</h1>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value"><%= stats.totalOrders %></div>
+        <div class="stat-label">Completed Orders</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">$<%= stats.totalRevenue.toFixed(2) %></div>
+        <div class="stat-label">Revenue</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value"><%= stats.availableKeys %></div>
+        <div class="stat-label">Available Keys</div>
+      </div>
+    </div>
+
+    <div class="admin-section">
+      <h2>Products & Stock</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Duration</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(p => { %>
+            <tr>
+              <td><%= p.id %></td>
+              <td><%= p.name %></td>
+              <td>$<%= p.price.toFixed(2) %></td>
+              <td><%= p.duration_days === null ? 'Lifetime' : p.duration_days + ' days' %></td>
+              <td><%= p.stock %></td>
+              <td>
+                <span class="badge <%= p.active ? 'badge-green' : 'badge-red' %>">
+                  <%= p.active ? 'Active' : 'Hidden' %>
+                </span>
+              </td>
+              <td class="actions">
+                <form method="POST" action="/admin/generate-keys" style="display:inline">
+                  <input type="hidden" name="product_id" value="<%= p.id %>">
+                  <input type="number" name="amount" value="20" min="1" max="500" style="width:70px">
+                  <button type="submit" class="btn btn-sm">+ Keys</button>
+                </form>
+                <form method="POST" action="/admin/toggle-product" style="display:inline">
+                  <input type="hidden" name="id" value="<%= p.id %>">
+                  <button type="submit" class="btn btn-sm btn-secondary">
+                    <%= p.active ? 'Hide' : 'Show' %>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="admin-section">
+      <h2>Recent Orders</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Email</th>
+            <th>Key</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (orders.length === 0) { %>
+            <tr><td colspan="7" style="text-align:center;color:#71717a">No orders yet</td></tr>
+          <% } %>
+          <% orders.forEach(o => { %>
+            <tr>
+              <td><%= o.id %></td>
+              <td><%= o.product_name %></td>
+              <td><%= o.buyer_email %></td>
+              <td><code class="key-mini"><%= o.key_value || '—' %></code></td>
+              <td>$<%= o.amount.toFixed(2) %></td>
+              <td>
+                <span class="badge <%= o.status === 'completed' ? 'badge-green' : 'badge-yellow' %>">
+                  <%= o.status %>
+                </span>
+              </td>
+              <td><%= new Date(o.created_at).toLocaleString() %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,47 @@
+<%- include('partials/header') %>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Premium Roblox Script Access</h1>
+    <p class="subtitle">Instant key delivery to your email · HWID protected · 24/7 support</p>
+  </div>
+</section>
+
+<section class="products">
+  <div class="container">
+    <h2 class="section-title">Choose Your Plan</h2>
+    <div class="product-grid">
+      <% products.forEach(p => { %>
+        <div class="product-card <%= p.duration_days === null ? 'featured' : '' %>">
+          <% if (p.duration_days === null) { %>
+            <div class="badge">Best Value</div>
+          <% } %>
+          <h3><%= p.name %></h3>
+          <div class="price">
+            <span class="amount">$<%= p.price.toFixed(2) %></span>
+            <span class="period">
+              <% if (p.duration_days === null) { %>one-time<% } else { %>/ <%= p.duration_days %>d<% } %>
+            </span>
+          </div>
+          <p class="desc"><%= p.description %></p>
+          <ul class="features">
+            <li>✓ Instant email delivery</li>
+            <li>✓ HWID lock</li>
+            <li>✓ <%= p.duration_days === null ? 'Never expires' : p.duration_days + ' days access' %></li>
+            <li>✓ Priority updates</li>
+          </ul>
+          <div class="stock">
+            <% if (p.stock > 0) { %>
+              <span class="in-stock"><%= p.stock %> keys left</span>
+            <% } else { %>
+              <span class="out-stock">Out of stock (will generate)</span>
+            <% } %>
+          </div>
+          <a href="/product/<%= p.id %>" class="btn btn-primary">Buy Now</a>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,45 @@
+<%- include('partials/header') %>
+
+<section class="checkout-section">
+  <div class="container narrow">
+    <a href="/" class="back-link">← Back to store</a>
+
+    <div class="checkout-card">
+      <div class="product-summary">
+        <h1><%= product.name %></h1>
+        <p class="price-big">$<%= product.price.toFixed(2) %></p>
+        <p class="desc"><%= product.description %></p>
+        <ul class="features compact">
+          <li>✓ Key delivered instantly by email</li>
+          <li>✓ <%= product.duration_days ? product.duration_days + ' days access' : 'Lifetime license' %></li>
+          <li>✓ HWID locked to your device</li>
+        </ul>
+      </div>
+
+      <form action="/checkout" method="POST" class="checkout-form">
+        <input type="hidden" name="product_id" value="<%= product.id %>">
+        
+        <div class="form-group">
+          <label for="email">Email address *</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com" autofocus>
+          <small>Your key will be sent here instantly after payment</small>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Name (optional)</label>
+          <input type="text" id="name" name="name" placeholder="Your name">
+        </div>
+
+        <div class="payment-note">
+          <strong>Demo Mode:</strong> Payment is simulated. In production connect Stripe / Crypto / PayPal.
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          Complete Purchase · $<%= product.price.toFixed(2) %>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,44 @@
+<%- include('partials/header') %>
+
+<section class="success-section">
+  <div class="container narrow">
+    <div class="success-card">
+      <div class="success-icon">✓</div>
+      <h1>Purchase Complete!</h1>
+      <p class="subtitle">Your key has been generated and <%= emailSent ? 'sent to your email' : 'is ready below' %>.</p>
+
+      <div class="key-display">
+        <div class="label">Your License Key</div>
+        <code id="key"><%= keyValue %></code>
+        <button class="btn btn-secondary btn-sm" onclick="copyKey()">Copy Key</button>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Product:</strong> <%= product.name %></p>
+        <p><strong>Email:</strong> <%= email %></p>
+        <% if (demoMode) { %>
+          <p class="warning">⚠️ Email is in demo mode (SMTP not configured). Check the server console for the email content.</p>
+        <% } else if (emailSent) { %>
+          <p class="success-text">✅ Key emailed successfully. Check your inbox (and spam folder).</p>
+        <% } else { %>
+          <p class="warning">⚠️ Email failed to send. Please save the key above and contact support.</p>
+        <% } %>
+      </div>
+
+      <p class="help">Paste this key into the script when it asks for a license. Keep it private.</p>
+
+      <a href="/" class="btn btn-primary">Back to Store</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  function copyKey() {
+    const key = document.getElementById('key').innerText;
+    navigator.clipboard.writeText(key).then(() => {
+      alert('Key copied to clipboard!');
+    });
+  }
+</script>
+
+<%- include('partials/footer') %>
