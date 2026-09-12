@@ -2,16 +2,16 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const db = require('./utils/db');
-const { assignKey, generateKeys } = require('./utils/keys');
-const { sendKeyEmail } = require('./utils/email');
+const db = require('./db');
+const { assignKey, generateKeys } = require('./keys');
+const { sendKeyEmail } = require('./email');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', __dirname); // all .ejs files are in root
+app.use(express.static(__dirname)); // style.css is in root
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({
@@ -136,7 +136,5 @@ app.post('/admin/toggle-product', requireAdmin, (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 MySell Auth store running at http://localhost:${PORT}`);
-  console.log(`   Admin panel: http://localhost:${PORT}/admin`);
-  console.log(`   Default login: admin / supersecret123\n`);
+  console.log(`🚀 MySell Auth store running on port ${PORT}`);
 });
