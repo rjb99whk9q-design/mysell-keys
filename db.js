@@ -18,7 +18,7 @@ const defaultData = {
       id: 2,
       name: '7 Day Key',
       description: 'One week of premium access. Best value for casual users.',
-      price: 7.99,
+      price: $5.50,
       duration_days: 7,
       stock: 0,
       active: 1
@@ -27,7 +27,7 @@ const defaultData = {
       id: 3,
       name: '30 Day Key',
       description: 'Full month of access with priority updates.',
-      price: 14.99,
+      price: 10.99,
       duration_days: 30,
       stock: 0,
       active: 1
@@ -36,8 +36,8 @@ const defaultData = {
       id: 4,
       name: 'Lifetime Key',
       description: 'Never expires. HWID locked. Best for long-term users.',
-      price: 29.99,
-      duration_days: null,
+      price: 16.99,
+      duration_days: forever,
       stock: 0,
       active: 1
     }
